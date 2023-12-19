@@ -11,29 +11,34 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages).
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+Handler: Can able to handle multiple async calls once at a time
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+Reduce memory while multiple api calls
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+```dart
+import 'package:handler/handler.dart';
+```
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
 ```dart
-const like = 'sample';
+import 'dart:math';
+import 'package:handler/handler.dart';
+void main() async {
+  final handler = Handler();
+
+  // Use the rate limiter with any function
+  for (var i = 0; i < 5; i++) {
+    final result = await handler.execute((() async {
+      // Simulate a time-consuming operation
+      await Future.delayed(Duration(seconds: 2));
+      return Random().nextInt(9999);
+    }));
+    print(result);
+  }
+}
 ```
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
